@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseFit Studio — Strength, Mobility &amp; Conditioning</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       CSS Variables & Design Tokens
+       ========================================================================== */
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-accent-soft: #ecfdf5;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-text: #065f46;
+      --accent-border: #a7f3d0;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 20px 35px -10px rgba(5, 150, 105, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --container-max: 1140px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-page: #070d16;
+        --bg-surface: #0f172a;
+        --bg-subtle: #162033;
+        --bg-accent-soft: rgba(16, 185, 129, 0.12);
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --accent: #10b981;
+        --accent-hover: #34d399;
+        --accent-text: #6ee7b7;
+        --accent-border: rgba(16, 185, 129, 0.35);
+        --border-color: #1e293b;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 12px 28px -6px rgba(0, 0, 0, 0.55);
+        --shadow-lg: 0 20px 40px -12px rgba(16, 185, 129, 0.18);
+      }
+    }
+
+    /* ==========================================================================
+       Reset & Base Typography
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+    }
+
+    .section-header {
+      max-width: 640px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.35rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* ==========================================================================
+       Buttons
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.45rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-subtle);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--accent-text);
+      border-color: var(--accent-border);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--bg-accent-soft);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       Navigation Bar & Mobile Drawer
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 70px;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #0d9488);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 18px;
+    }
+
+    .menu-icon span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background-color: currentColor;
+      border-radius: 2px;
+    }
+
+    .mobile-drawer {
+      display: none;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--bg-surface);
+      padding: 1rem 1.25rem 1.5rem;
+    }
+
+    .mobile-drawer.is-open {
+      display: block;
+    }
+
+    .mobile-drawer ul {
+      list-style: none;
+      margin: 0 0 1rem;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mobile-drawer a:not(.btn) {
+      display: block;
+      padding: 0.65rem 0.5rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+    }
+
+    .mobile-drawer a:not(.btn):hover {
+      background-color: var(--bg-subtle);
+      color: var(--accent);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links,
+      .nav-cta {
+        display: inline-flex;
+      }
+
+      .menu-toggle,
+      .mobile-drawer {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .hero {
+      padding: 4rem 0 4.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background-color: var(--bg-accent-soft);
+      color: var(--accent-text);
+      border: 1px solid var(--accent-border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1.15rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.15rem, 4.5vw, 3.35rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      max-width: 520px;
+    }
+
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .pill-live {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background-color: var(--bg-accent-soft);
+      color: var(--accent-text);
+    }
+
+    .session-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-subtle);
+      gap: 0.75rem;
+    }
+
+    .session-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .session-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .session-time {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        padding: 5rem 0;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.85fr;
+        gap: 3rem;
+      }
+    }
+
+    /* ==========================================================================
+       Programs / Features Grid
+       ========================================================================== */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+    }
+
+    @media (min-width: 640px) {
+      .programs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .programs-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .program-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .program-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background-color: var(--bg-accent-soft);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .program-card h3 {
+      font-size: 1.12rem;
+      font-weight: 700;
+    }
+
+    .program-card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      flex: 1;
+    }
+
+    .program-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-text);
+    }
+
+    /* ==========================================================================
+       Membership Pricing & Billing Toggle
+       ========================================================================== */
+    .pricing-section {
+      background-color: var(--bg-subtle);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .billing-switch-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .billing-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .billing-label.is-active {
+      color: var(--text-primary);
+    }
+
+    .billing-toggle {
+      position: relative;
+      width: 56px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background-color: var(--accent);
+      padding: 0;
+      transition: background-color 0.2s ease;
+    }
+
+    .billing-toggle[aria-checked="false"] {
+      background-color: var(--text-muted);
+    }
+
+    .billing-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      transition: transform 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .billing-toggle[aria-checked="true"] .billing-thumb {
+      transform: translateX(26px);
+    }
+
+    .save-badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background-color: var(--bg-accent-soft);
+      color: var(--accent-text);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    @media (min-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .pricing-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pricing-card.is-featured {
+      border: 2px solid var(--accent);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .tier-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .tier-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background-color: var(--bg-accent-soft);
+      color: var(--accent-text);
+    }
+
+    .tier-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .price-box {
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .price-amount {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .price-period {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-left: 0.25rem;
+    }
+
+    .price-note {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--accent-text);
+      margin-top: 0.25rem;
+      min-height: 1.15rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 0.6rem;
+    }
+
+    .selection-feedback {
+      margin-top: 1.75rem;
+      text-align: center;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--accent-text);
+      min-height: 1.4rem;
+    }
+
+    /* ==========================================================================
+       FAQ Accordion
+       ========================================================================== */
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .faq-item {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 1.15rem 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .faq-trigger:hover {
+      background-color: var(--bg-subtle);
+    }
+
+    .faq-icon {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-trigger[aria-expanded="true"] .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-panel {
+      display: none;
+      padding: 0 1.35rem 1.2rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.95rem;
+    }
+
+    .faq-panel.is-open {
+      display: block;
+    }
+
+    /* ==========================================================================
+       Footer
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .footer-credit a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .footer-credit a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="#" class="brand" aria-label="PulseFit Studio Home">
+        <span class="brand-mark" aria-hidden="true">PF</span>
+        <span>PulseFit Studio</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#pricing">Membership</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <a href="#pricing" class="btn btn-primary nav-cta">Start Free Trial</a>
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="mobile-menu-btn"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <span class="menu-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <nav aria-label="Mobile Navigation">
+        <ul>
+          <li><a href="#programs" class="mobile-nav-link">Programs</a></li>
+          <li><a href="#pricing" class="mobile-nav-link">Membership</a></li>
+          <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+        </ul>
+      </nav>
+      <a href="#pricing" class="btn btn-primary btn-full mobile-nav-link">Start Free Trial</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="hero-badge">Small-Group &amp; 1-on-1 Training</span>
+          <h1 class="hero-title">Train with purpose. Build <span>lasting strength</span>.</h1>
+          <p class="hero-copy">
+            PulseFit Studio combines progressive strength programming, joint-friendly mobility work,
+            and structured conditioning so you can move better, feel energized, and stay consistent
+            year-round.
+          </p>
+          <div class="hero-actions">
+            <a href="#pricing" class="btn btn-primary">Claim 7-Day Trial</a>
+            <a href="#programs" class="btn btn-secondary">Explore Programs</a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="stat-num">12 Max</div>
+              <div class="stat-label">Members per class</div>
+            </div>
+            <div>
+              <div class="stat-num">35+</div>
+              <div class="stat-label">Weekly coached sessions</div>
+            </div>
+            <div>
+              <div class="stat-num">4.9 ★</div>
+              <div class="stat-label">Member satisfaction</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Today's sample class schedule">
+          <div class="hero-card-header">
+            <div>
+              <h2 style="font-size: 1.05rem; font-weight: 700;">Today's Coach Schedule</h2>
+              <p class="session-meta">Reserve a spot anytime in-studio</p>
+            </div>
+            <span class="pill-live">Open Spots</span>
+          </div>
+          <div class="session-row">
+            <div>
+              <div class="session-name">Strength &amp; Conditioning</div>
+              <div class="session-meta">Coach Rhea &middot; Barbell &amp; Kettlebells</div>
+            </div>
+            <span class="session-time">07:00 AM</span>
+          </div>
+          <div class="session-row">
+            <div>
+              <div class="session-name">Mobility &amp; Recovery</div>
+              <div class="session-meta">Coach Kabir &middot; Thoracic &amp; Hip Flow</div>
+            </div>
+            <span class="session-time">12:30 PM</span>
+          </div>
+          <div class="session-row">
+            <div>
+              <div class="session-name">HIIT &amp; Cardio Engine</div>
+              <div class="session-meta">Coach Tara &middot; Intervals &amp; Sleds</div>
+            </div>
+            <span class="session-time">06:00 PM</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Programs / Features Grid -->
+    <section id="programs" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Training Tracks</span>
+          <h2 class="section-title">Structured programs for every goal</h2>
+          <p class="section-subtitle">
+            Every session is scaled to your current fitness level with clear coaching cues and measurable progression.
+          </p>
+        </div>
+
+        <div class="programs-grid">
+          <article class="program-card">
+            <div class="program-icon" aria-hidden="true">SC</div>
+            <h3>Strength &amp; Conditioning</h3>
+            <p>
+              Build foundational muscle, bone density, and full-body power through progressive
+              compound lifts, carries, and tempo training.
+            </p>
+            <span class="program-tag">45–55 mins &middot; All Levels</span>
+          </article>
+
+          <article class="program-card">
+            <div class="program-icon" aria-hidden="true">MR</div>
+            <h3>Mobility &amp; Recovery</h3>
+            <p>
+              Unlock stiff hips, shoulders, and spine with active range-of-motion drills, controlled
+              breathing, and restorative cool-downs.
+            </p>
+            <span class="program-tag">40 mins &middot; Low Impact</span>
+          </article>
+
+          <article class="program-card">
+            <div class="program-icon" aria-hidden="true">HC</div>
+            <h3>HIIT &amp; Cardio</h3>
+            <p>
+              Boost aerobic capacity and metabolic endurance using smart work-to-rest intervals on
+              rowers, air bikes, and turf lanes.
+            </p>
+            <span class="program-tag">40–45 mins &middot; High Energy</span>
+          </article>
+
+          <article class="program-card">
+            <div class="program-icon" aria-hidden="true">PC</div>
+            <h3>Personal Coaching</h3>
+            <p>
+              Get a customized training block, movement screening, and weekly check-ins tailored to
+              your schedule, milestones, and recovery needs.
+            </p>
+            <span class="program-tag">1-on-1 &middot; Custom Plan</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Membership Pricing & Interactive Billing Toggle -->
+    <section id="pricing" class="section pricing-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Memberships</span>
+          <h2 class="section-title">Transparent plans that grow with you</h2>
+          <p class="section-subtitle">
+            Switch between monthly billing and quarterly billing to save 20% on every plan.
+          </p>
+        </div>
+
+        <div class="billing-switch-wrap">
+          <span class="billing-label is-active" id="label-monthly">Monthly</span>
+          <button
+            type="button"
+            role="switch"
+            id="billing-toggle"
+            class="billing-toggle"
+            aria-checked="false"
+            aria-label="Toggle quarterly billing for 20 percent savings"
+          >
+            <span class="billing-thumb" aria-hidden="true"></span>
+          </button>
+          <span class="billing-label" id="label-quarterly">Quarterly</span>
+          <span class="save-badge">Save 20% Quarterly</span>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Tier 1: Starter -->
+          <article class="pricing-card">
+            <div>
+              <div class="tier-header">
+                <h3 class="tier-name">Starter</h3>
+              </div>
+              <p class="tier-desc">Ideal for building a steady 2–3x per week training habit.</p>
+              <div class="price-box">
+                <span class="price-amount" data-monthly="2499" data-quarterly="1999">₹2,499</span>
+                <span class="price-period" data-billing-suffix>/ month</span>
+                <span class="price-note" data-billing-note>Billed monthly</span>
+              </div>
+              <ul class="feature-list">
+                <li>8 group classes per month</li>
+                <li>Access to Mobility &amp; Recovery sessions</li>
+                <li>Complimentary onboarding assessment</li>
+                <li>Open gym access during off-peak hours</li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-outline btn-full select-plan-btn" data-plan="Starter">
+              Choose Starter
+            </button>
+          </article>
+
+          <!-- Tier 2: Unlimited (Featured) -->
+          <article class="pricing-card is-featured">
+            <div>
+              <div class="tier-header">
+                <h3 class="tier-name">Unlimited</h3>
+                <span class="tier-badge">Most Popular</span>
+              </div>
+              <p class="tier-desc">Full access to every class track and open-floor training.</p>
+              <div class="price-box">
+                <span class="price-amount" data-monthly="3999" data-quarterly="3199">₹3,999</span>
+                <span class="price-period" data-billing-suffix>/ month</span>
+                <span class="price-note" data-billing-note>Billed monthly</span>
+              </div>
+              <ul class="feature-list">
+                <li>Unlimited Strength, HIIT &amp; Mobility classes</li>
+                <li>Full open studio access all week</li>
+                <li>Monthly progress &amp; lift benchmark tracking</li>
+                <li>1 guest pass every month</li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-primary btn-full select-plan-btn" data-plan="Unlimited">
+              Choose Unlimited
+            </button>
+          </article>
+
+          <!-- Tier 3: Coaching Pro -->
+          <article class="pricing-card">
+            <div>
+              <div class="tier-header">
+                <h3 class="tier-name">Coaching Pro</h3>
+              </div>
+              <p class="tier-desc">Dedicated 1-on-1 coaching paired with unlimited studio classes.</p>
+              <div class="price-box">
+                <span class="price-amount" data-monthly="7499" data-quarterly="5999">₹7,499</span>
+                <span class="price-period" data-billing-suffix>/ month</span>
+                <span class="price-note" data-billing-note>Billed monthly</span>
+              </div>
+              <ul class="feature-list">
+                <li>Everything in Unlimited membership</li>
+                <li>4 private 1-on-1 coaching sessions / month</li>
+                <li>Custom individualized workout programming</li>
+                <li>Bi-weekly form &amp; recovery check-ins</li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-outline btn-full select-plan-btn" data-plan="Coaching Pro">
+              Choose Coaching Pro
+            </button>
+          </article>
+        </div>
+
+        <p class="selection-feedback" id="plan-feedback" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Common Questions</span>
+          <h2 class="section-title">Everything you need to know</h2>
+          <p class="section-subtitle">
+            Answers to common questions about starting out, class scaling, and memberships.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-1" id="faq-btn-1">
+              <span>Do I need prior gym experience to join PulseFit Studio?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-1" role="region" aria-labelledby="faq-btn-1">
+              Not at all. Every member starts with a brief goal and movement check-in, and our
+              coaches provide regressions, progressions, and load options so beginners and seasoned
+              lifters can train safely side by side.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-2" id="faq-btn-2">
+              <span>How does the 20% quarterly billing discount work?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-2" role="region" aria-labelledby="faq-btn-2">
+              Toggling to Quarterly shows the discounted equivalent monthly rate and bills for a
+              3-month training block upfront, saving you 20% compared to paying month by month.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-3" id="faq-btn-3">
+              <span>Can I pause or switch my membership plan later?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-3" role="region" aria-labelledby="faq-btn-3">
+              Yes. You can upgrade, downgrade, or request a travel freeze before your next billing
+              cycle begins with no hidden administrative fees.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-4" id="faq-btn-4">
+              <span>What should I bring to my first session?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-4" role="region" aria-labelledby="faq-btn-4">
+              Bring comfortable athletic wear, supportive training shoes, a water bottle, and a small
+              towel. Lockers, showers, and all training equipment are available on-site.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>PulseFit Studio</strong> &middot; Strength, Mobility &amp; Conditioning
+      </div>
+      <div class="footer-credit">
+        Crafted by <a href="https://github.com/pribharti18" target="_blank" rel="noopener noreferrer">Preeti Bharti</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Mobile navigation menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const mobileLinks = mobileDrawer.querySelectorAll('.mobile-nav-link');
+
+      function setMenuState(isOpen) {
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+        mobileDrawer.classList.toggle('is-open', isOpen);
+      }
+
+      menuBtn.addEventListener('click', function () {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        setMenuState(!expanded);
+      });
+
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          setMenuState(false);
+        });
+      });
+
+      // Monthly / Quarterly billing toggle (20% off quarterly)
+      const billingToggle = document.getElementById('billing-toggle');
+      const labelMonthly = document.getElementById('label-monthly');
+      const labelQuarterly = document.getElementById('label-quarterly');
+      const priceAmounts = document.querySelectorAll('.price-amount');
+      const priceNotes = document.querySelectorAll('[data-billing-note]');
+      const planFeedback = document.getElementById('plan-feedback');
+
+      let isQuarterly = false;
+
+      function formatINR(value) {
+        return '₹' + Number(value).toLocaleString('en-IN');
+      }
+
+      function updateBillingDisplay() {
+        billingToggle.setAttribute('aria-checked', String(isQuarterly));
+        labelMonthly.classList.toggle('is-active', !isQuarterly);
+        labelQuarterly.classList.toggle('is-active', isQuarterly);
+
+        priceAmounts.forEach(function (el) {
+          const amount = isQuarterly ? el.dataset.quarterly : el.dataset.monthly;
+          el.textContent = formatINR(amount);
+        });
+
+        priceNotes.forEach(function (note) {
+          note.textContent = isQuarterly
+            ? 'Billed quarterly (20% savings applied)'
+            : 'Billed monthly';
+        });
+      }
+
+      billingToggle.addEventListener('click', function () {
+        isQuarterly = !isQuarterly;
+        updateBillingDisplay();
+        if (planFeedback.textContent) {
+          planFeedback.textContent = '';
+        }
+      });
+
+      // Plan selection feedback
+      document.querySelectorAll('.select-plan-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const planName = btn.dataset.plan;
+          const cycleText = isQuarterly ? 'Quarterly (20% off)' : 'Monthly';
+          planFeedback.textContent =
+            'Selected "' + planName + '" on ' + cycleText + ' billing — visit front desk or message us to activate your 7-day trial.';
+        });
+      });
+
+      // FAQ accordion toggles
+      document.querySelectorAll('.faq-trigger').forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+          const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+          const panelId = trigger.getAttribute('aria-controls');
+          const panel = document.getElementById(panelId);
+
+          trigger.setAttribute('aria-expanded', String(!isExpanded));
+          if (panel) {
+            panel.classList.toggle('is-open', !isExpanded);
+          }
+        });
+      });
+
+      updateBillingDisplay();
+    })();
+  </script>
+</body>
+</html>
